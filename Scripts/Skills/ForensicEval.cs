@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text;
 using Server.Items;
 using Server.Mobiles;
@@ -90,25 +89,6 @@ namespace Server.SkillHandlers
                         from.SendLocalizedMessage(1042749, p.Picker.Name);//This lock was opened by ~1_PICKER_NAME~
                     else
                         from.SendLocalizedMessage(501003);//You notice nothing unusual.
-                }
-                else if (target is Item)
-                {
-                    Item item = (Item)target;
-
-                    if (item.HonestyItem && item.HonestyOwner != null)
-                    {
-                        //Mobile owner = World.Mobiles.Values.FirstOrDefault(m => m.Serial.ToString() == item.HonestyOwner);
-                        //Get correct messages in game
-                        if (from.Skills.Forensics.Value >= 65)
-                        {
-                            from.SendMessage(string.Format("This item belongs to {0} in {1}, {2}", item.HonestyOwner.Name, item.HonestyRegion, item.HonestyOwner.Map.Name));
-                        }
-                        else if (from.Skills.Forensics.Value >= 40)
-                        {
-                            from.SendMessage(string.Format("This item belongs to someone in {0}, {1}", item.HonestyRegion, item.HonestyOwner.Map.Name));
-                        }
-
-                    }
                 }
             }
         }

@@ -113,7 +113,7 @@ namespace Server.Items
 			}
 
 			if ( (version == 0 && Weight == 0.1) || ( version <= 2 && Weight == 2 ) )
-				Weight = -1;
+				Weight = -1.5;
 
 			if ( version <= 1 )
 				m_Resource = CraftResource.RegularWood;

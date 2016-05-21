@@ -17,7 +17,7 @@ namespace Server.Items
             this.Attributes.WeaponDamage = 60;
 
             this.WeaponAttributes.ResistFireBonus = 20;
-            this.BlockRepair = true;
+            BlockRepair = true;
         }
 
         public DragonsEnd(Serial serial)

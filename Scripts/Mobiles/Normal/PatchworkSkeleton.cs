@@ -64,7 +64,7 @@ namespace Server.Mobiles
         {
             get
             {
-                return 1;
+                return 4;
             }
         }
         public override WeaponAbility GetWeaponAbility()

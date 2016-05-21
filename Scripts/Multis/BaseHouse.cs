@@ -102,7 +102,7 @@ namespace Server.Multis
             }
         }
 
-        [CommandProperty(AccessLevel.GameMaster)]
+        [CommandProperty(AccessLevel.Player)]
         public bool RestrictDecay
         {
             get
@@ -119,7 +119,7 @@ namespace Server.Multis
         {
             get
             {
-                return TimeSpan.FromDays(5.0);
+                return TimeSpan.FromDays(60.0);
             }
         }
 
@@ -138,14 +138,14 @@ namespace Server.Multis
                 if (acct == null)
                     return Core.AOS ? DecayType.Condemned : DecayType.ManualRefresh;
 
-                if (acct.AccessLevel >= AccessLevel.GameMaster)
+                if (acct.AccessLevel >= AccessLevel.Player)
                     return DecayType.Ageless;
 
                 for (int i = 0; i < acct.Length; ++i)
                 {
                     Mobile mob = acct[i];
 
-                    if (mob != null && mob.AccessLevel >= AccessLevel.GameMaster)
+                    if (mob != null && mob.AccessLevel >= AccessLevel.Player)
                         return DecayType.Ageless;
                 }
 
@@ -202,7 +202,7 @@ namespace Server.Multis
 
         private DecayLevel m_LastDecayLevel;
 
-        [CommandProperty(AccessLevel.GameMaster)]
+        [CommandProperty(AccessLevel.Player)]
         public virtual DecayLevel DecayLevel
         {
             get

@@ -26,9 +26,7 @@ namespace Server
 
             luck += FountainOfFortune.GetLuckBonus(killer);
 
-            luck += TenthAnniversarySculpture.GetLuckBonus(killer);
-
-            PlayerMobile pmKiller = killer as PlayerMobile;
+			PlayerMobile pmKiller = killer as PlayerMobile;
 			if (pmKiller != null && pmKiller.SentHonorContext != null && pmKiller.SentHonorContext.Target == victim)
 			{
 				luck += pmKiller.SentHonorContext.PerfectionLuckBonus;

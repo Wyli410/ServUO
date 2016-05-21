@@ -236,7 +236,7 @@ namespace Server.Items
         {
             get
             {
-                return !IsImbued && NegativeAttributes.Antique < 3;
+                return m_IsImbued == false && NegativeAttributes.Antique < 3;
             }
         }
 
@@ -458,9 +458,8 @@ namespace Server.Items
         {
             get
             {
-                if (this.TimesImbued >= 1 && !m_IsImbued)
+                if (this.TimesImbued >= 1)
                     m_IsImbued = true;
-
                 return m_IsImbued;
             }
             set
@@ -1170,7 +1169,7 @@ namespace Server.Items
         {
             int bonus = 0;
 
-            if (this.m_Quality == ArmorQuality.Exceptional &&!(this is GargishLeatherWingArmor))
+            if (this.m_Quality == ArmorQuality.Exceptional)
                 bonus += 20;
 
             switch ( this.m_Durability )
@@ -2505,7 +2504,7 @@ namespace Server.Items
             base.GetProperties(list);
 
             #region Stygian Abyss
-            if (this.IsImbued)
+            if (this.m_IsImbued == true)
                 list.Add(1080418); // (Imbued)
 
             if (m_GorgonLenseCharges > 0)
@@ -2790,7 +2789,7 @@ namespace Server.Items
                 if (!(Core.ML && this is BaseShield))		// Guessed Core.ML removed exceptional resist bonuses from crafted shields
                     this.DistributeBonuses((tool is BaseRunicTool ? 6 : Core.SE ? 15 : 14)); // Not sure since when, but right now 15 points are added, not 14.
 
-                if (Core.ML && !(this is BaseShield) && !(this is GargishLeatherWingArmor))
+                if (Core.ML && !(this is BaseShield))
                 {
                     int bonus = (int)(from.Skills.ArmsLore.Value / 20);
 

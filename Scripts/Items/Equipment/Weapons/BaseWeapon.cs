@@ -192,7 +192,7 @@ namespace Server.Items
 		public virtual int InitMinHits { get { return 0; } }
 		public virtual int InitMaxHits { get { return 0; } }
 
-        public virtual bool CanFortify { get { return !IsImbued && NegativeAttributes.Antique < 3; } }
+        public virtual bool CanFortify { get { return m_IsImbued == false && NegativeAttributes.Antique < 3; } }
         public virtual bool CanRepair { get { return m_NegativeAttributes.NoRepair == 0; } }
 
 		public override int PhysicalResistance { get { return m_AosWeaponAttributes.ResistPhysicalBonus; } }
@@ -606,9 +606,8 @@ namespace Server.Items
         {
             get 
             {
-                if (this.TimesImbued >= 1 && !m_IsImbued)
+                if (this.TimesImbued >= 1)
                     m_IsImbued = true;
-
                 return m_IsImbued; 
             }
             set 
@@ -2071,14 +2070,12 @@ namespace Server.Items
 			if (cs != CheckSlayerResult.None)
 			{
 				if (cs == CheckSlayerResult.Slayer)
+				{
 					defender.FixedEffect(0x37B9, 10, 5);
+				}
 
-                if (Core.SA && cs == CheckSlayerResult.Slayer  && cs != CheckSlayerResult.Opposition)
-				    percentageBonus += 200;
-                else
-                    percentageBonus += 100;
-
-            }
+				percentageBonus += 100;
+			}
 
 			if (!attacker.Player)
 			{
@@ -2983,13 +2980,6 @@ namespace Server.Items
 			BaseWeapon atkWeapon = attacker.Weapon as BaseWeapon;
 			SlayerEntry atkSlayer = SlayerGroup.GetEntryByName(atkWeapon.Slayer);
 			SlayerEntry atkSlayer2 = SlayerGroup.GetEntryByName(atkWeapon.Slayer2);
-
-            List<SlayerName> super = new List<SlayerName>() {SlayerName.Repond, SlayerName.Silver, SlayerName.Fey, SlayerName.ElementalBan, SlayerName.Exorcism, SlayerName.ArachnidDoom, SlayerName.ReptilianDeath};
-
-		    if ((atkSlayer != null && atkSlayer.Slays(defender) && super.Contains(atkSlayer.Name)) || (atkSlayer2 != null && atkSlayer2.Slays(defender) && super.Contains(atkSlayer2.Name)))
-		    {
-		        return CheckSlayerResult.SuperSlayer;
-		    }
 
             if (atkSlayer != null && atkSlayer.Slays(defender) || atkSlayer2 != null && atkSlayer2.Slays(defender))
 			{
@@ -4863,7 +4853,7 @@ namespace Server.Items
 			}
            
 
-			if (IsImbued)
+			if (m_IsImbued == true)
 			{
 				list.Add(1080418); // (Imbued)
 			}
@@ -5229,11 +5219,6 @@ namespace Server.Items
 			if ((prop = m_AosAttributes.LowerRegCost) != 0)
 			{
 				list.Add(1060434, prop.ToString()); // lower reagent cost ~1_val~%
-			}
-
-			if ((prop = m_AosAttributes.LowerAmmoCost) != 0)
-			{
-				list.Add(1075208, prop.ToString()); // Lower Ammo Cost ~1_Percentage~%
 			}
 
 			if ((prop = GetLowerStatReq()) != 0)
@@ -5876,7 +5861,6 @@ namespace Server.Items
 	{
 		None,
 		Slayer,
-        	SuperSlayer,
 		Opposition
 	}
 }

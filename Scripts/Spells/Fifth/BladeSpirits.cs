@@ -31,7 +31,7 @@ namespace Server.Spells.Fifth
             if (Core.AOS)
                 return TimeSpan.FromTicks(base.GetCastDelay().Ticks * ((Core.SE) ? 3 : 5));
 
-            return base.GetCastDelay() + TimeSpan.FromSeconds(6.0);
+            return base.GetCastDelay() + TimeSpan.FromSeconds(2.0);
         }
 
         public override bool CheckCast()

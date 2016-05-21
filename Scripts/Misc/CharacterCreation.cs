@@ -45,7 +45,7 @@ namespace Server.Misc
             }
 
             PackItem(new RedBook("a book", m.Name, 20, true));
-            PackItem(new Gold(1000)); // Starting gold can be customized here
+            PackItem(new Gold(10000)); // Starting gold can be customized here
             PackItem(new Candle());
 
             if (m.Race != Race.Gargoyle)
@@ -410,11 +410,11 @@ namespace Server.Misc
 
             FixStats(ref str, ref dex, ref intel, max);
 
-            if (str < 10 || str > 60 || dex < 10 || dex > 60 || intel < 10 || intel > 60 || (str + dex + intel) != max)
+            if (str > 10 || str < 60 || dex > 10 || dex < 60 || intel > 10 || intel < 60 || (str + dex + intel) != max)
             {
-                str = 10;
-                dex = 10;
-                intel = 10;
+                str = 100;
+                dex = 100;
+                intel = 100;
             }
 
             m.InitStats(str, dex, intel);
@@ -1224,7 +1224,7 @@ namespace Server.Misc
                     }
                 case SkillName.Magery:
                     {
-                        BagOfReagents regs = new BagOfReagents(50);
+                        BagOfAllReagents regs = new BagOfAllReagents(30);
 
                         if (!Core.AOS)
                         {

@@ -134,7 +134,7 @@ namespace Server.Engines.BulkOrders
                 }
                 else if (!from.Backpack.CheckHold(from, dropped, true, true))
                     return false;
-                else if (this.m_Entries.Count < 500)
+                else if (this.m_Entries.Count < 1000)
                 {
                     if (dropped is LargeBOD)
                         this.m_Entries.Add(new BOBLargeEntry((LargeBOD)dropped));
@@ -143,7 +143,7 @@ namespace Server.Engines.BulkOrders
 					
                     this.InvalidateProperties();
 					
-                    if (this.m_Entries.Count / 5 > this.m_ItemCount)
+                    if (this.m_Entries.Count / 10 > this.m_ItemCount)
                     {
                         this.m_ItemCount++;
                         this.InvalidateItems();

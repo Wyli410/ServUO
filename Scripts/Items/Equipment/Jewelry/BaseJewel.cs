@@ -238,9 +238,8 @@ namespace Server.Items
         {
             get
             {
-                if (this.TimesImbued >= 1 && !m_IsImbued)
+                if (this.TimesImbued >= 1)
                     m_IsImbued = true;
-
                 return m_IsImbued;
             }
             set
@@ -559,7 +558,7 @@ namespace Server.Items
         {
         }
 
-        public virtual bool CanFortify { get { return IsImbued == false && NegativeAttributes.Antique < 3; } }
+        public virtual bool CanFortify { get { return m_IsImbued == false && NegativeAttributes.Antique < 3; } }
         public virtual bool CanRepair { get { return m_NegativeAttributes.NoRepair == 0; } }
         #endregion
 
@@ -681,7 +680,7 @@ namespace Server.Items
             base.GetProperties(list);
 
             #region Stygian Abyss
-            if (IsImbued)
+            if (this.m_IsImbued == true)
                 list.Add(1080418); // (Imbued)
 
             if (m_GorgonLenseCharges > 0)
@@ -1044,6 +1043,63 @@ namespace Server.Items
 
         public int OnCraft(int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes, BaseTool tool, CraftItem craftItem, int resHue)
         {
+            int i_skill = (int)(from.Skills.Tinkering.Value - 80);
+            i_skill = (int)(i_skill / 3);
+            if (from.AccessLevel >= AccessLevel.Player && !(tool is BaseRunicTool)) BaseRunicTool.ApplyAttributesTo((BaseJewel)this, 5, 100, 100);
+            else if (i_skill >= 20 && !(tool is BaseRunicTool)) BaseRunicTool.ApplyAttributesTo((BaseJewel)this, 5, 100, 100);
+            {
+                int i_numberof = (int)(i_skill / 20);
+                if (i_numberof >= 5) i_numberof = 5;
+                int i_lowerend = (int)(i_skill - 30);
+                if (i_lowerend <= 10) i_lowerend = 10;
+                if (i_lowerend >= 50) i_lowerend = 50;
+                int i_upperend = (int)(i_skill);
+                if (i_upperend >= 100) i_upperend = 100;
+                BaseRunicTool.ApplyAttributesTo((BaseJewel)this, i_numberof, i_lowerend, i_upperend);
+            }
+            if (tool is BaseRunicTool)
+            {
+                int runicminattributes = 0;
+                int runicminintensity = 0;
+                int runicmaxintensity = 0;
+                BaseRunicTool t_tool = tool as BaseRunicTool;
+                string s_runicresource = Convert.ToString(t_tool.Resource);
+
+                if (s_runicresource == "DullCopper") runicminattributes = 1;
+                if (s_runicresource == "DullCopper") runicminintensity = 10;
+                if (s_runicresource == "DullCopper") runicmaxintensity = 35;
+
+                if (s_runicresource == "ShadowIron") runicminattributes = 1;
+                if (s_runicresource == "ShadowIron") runicminintensity = 20;
+                if (s_runicresource == "ShadowIron") runicmaxintensity = 45;
+
+                if (s_runicresource == "Copper") runicminattributes = 2;
+                if (s_runicresource == "Copper") runicminintensity = 25;
+                if (s_runicresource == "Copper") runicmaxintensity = 50;
+
+                if (s_runicresource == "Bronze") runicminattributes = 2;
+                if (s_runicresource == "Bronze") runicminintensity = 30;
+                if (s_runicresource == "Bronze") runicmaxintensity = 65;
+
+                if (s_runicresource == "Gold") runicminattributes = 3;
+                if (s_runicresource == "Gold") runicminintensity = 35;
+                if (s_runicresource == "Gold") runicmaxintensity = 75;
+
+                if (s_runicresource == "Agapite") runicminattributes = 3;
+                if (s_runicresource == "Agapite") runicminintensity = 40;
+                if (s_runicresource == "Agapite") runicmaxintensity = 80;
+
+                if (s_runicresource == "Verite") runicminattributes = 4;
+                if (s_runicresource == "Verite") runicminintensity = 45;
+                if (s_runicresource == "Verite") runicmaxintensity = 90;
+
+                if (s_runicresource == "Valorite") runicminattributes = 4;
+                if (s_runicresource == "Valorite") runicminintensity = 50;
+                if (s_runicresource == "Valorite") runicmaxintensity = 100;
+
+                BaseRunicTool.ApplyAttributesTo((BaseJewel)this, runicminattributes, runicminintensity, runicmaxintensity);
+            }
+
             Type resourceType = typeRes;
 
             if (resourceType == null)
@@ -1139,7 +1195,7 @@ namespace Server.Items
         private bool m_SetEquipped;
         private bool m_LastEquipped;
 
-        [CommandProperty(AccessLevel.GameMaster)]
+        [CommandProperty(AccessLevel.Player)]
         public int SetHue
         {
             get
@@ -1180,7 +1236,7 @@ namespace Server.Items
         private AosAttributes m_SetAttributes;
         private AosSkillBonuses m_SetSkillBonuses;
 
-        [CommandProperty(AccessLevel.GameMaster)]
+        [CommandProperty(AccessLevel.Player)]
         public AosAttributes SetAttributes
         {
             get
@@ -1192,7 +1248,7 @@ namespace Server.Items
             }
         }
 
-        [CommandProperty(AccessLevel.GameMaster)]
+        [CommandProperty(AccessLevel.Player)]
         public AosSkillBonuses SetSkillBonuses
         {
             get

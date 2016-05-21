@@ -22,7 +22,7 @@ namespace Server.Items
         {
             get
             {
-                return WeaponAbility.DoubleStrike;
+                return WeaponAbility.CrushingBlow;
             }
         }
         public override WeaponAbility SecondaryAbility

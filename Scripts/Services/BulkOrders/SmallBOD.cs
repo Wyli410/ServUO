@@ -18,7 +18,7 @@ namespace Server.Engines.BulkOrders
         public SmallBOD(int hue, int amountMax, Type type, int number, int graphic, bool requireExeptional, BulkMaterialType material)
             : base(Core.AOS ? 0x2258 : 0x14EF)
         {
-            this.Weight = 1.0;
+            this.Weight = 0.05;
             this.Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
             this.LootType = LootType.Blessed;
 

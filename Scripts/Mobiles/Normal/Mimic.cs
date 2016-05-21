@@ -1,5 +1,4 @@
 using System;
-using Server.Items;
 
 namespace Server.Mobiles
 {
@@ -52,14 +51,6 @@ namespace Server.Mobiles
         {
             this.AddLoot(LootPack.FilthyRich, 4);
             this.AddLoot(LootPack.MedScrolls);
-        }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.03)            
-                c.DropItem(new LuckyCoin());            
         }
 
         public override int GetIdleSound()

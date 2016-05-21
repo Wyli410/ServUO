@@ -50,46 +50,46 @@ namespace Server
 
         public override void OnResponse(NetState state, RelayInfo info)
         {
-            switch (info.ButtonID)
+            switch ( info.ButtonID )
             {
                 case 1:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Humility, 1052051, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#humility"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Humility, 1052051));
                         break;
                     }
                 case 2:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Sacrifice, 1052053, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#sacrafice"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Sacrifice, 1052053, @"http://update.uo.com/design_389.html"));
                         break;
                     }
                 case 3:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Compassion, 1053000, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#compassion"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Compassion, 1053000, @"http://update.uo.com/design_412.html"));
                         break;
                     }
                 case 4:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Spirituality, 1052056, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#spirituality"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Spirituality, 1052056));
                         break;
                     }
                 case 5:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Valor, 1054033, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#valor"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Valor, 1054033, @"http://update.uo.com/design_427.html"));
                         break;
                     }
                 case 6:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Honor, 1052058, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#honor"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Honor, 1052058, @"http://guide.uo.com/virtues_2.html"));
                         break;
                     }
                 case 7:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Justice, 1052059, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#justice"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Justice, 1052059, @"http://update.uo.com/design_413.html"));
                         break;
                     }
                 case 8:
                     {
-                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Honesty, 1052060, @"http://uo.com/wiki/ultima-online-wiki/gameplay/npc-commercial-transactions/the-virtues/#honesty"));
+                        this.m_Beholder.SendGump(new VirtueInfoGump(this.m_Beholder, VirtueName.Honesty, 1052060));
                         break;
                     }
                 case 9:

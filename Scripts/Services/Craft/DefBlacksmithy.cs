@@ -436,6 +436,22 @@ namespace Server.Engines.Craft
 
                 index = AddCraft(typeof(SoulGlaive), 1079508, 1095363, 75.0, 100.0, typeof(IronIngot), 1044036, 9, 1044037);
                 SetNeededExpansion(index, Expansion.SA);
+
+                index = AddCraft(typeof(SiegeCannonDeed), 1079508, "Siege Cannon", 100.0, 120.0, typeof(IronIngot), 1044036, 120, 1044037);
+                this.AddSkill(index, SkillName.Imbuing, 100.0, 115.0);
+                this.AddRes(index, typeof(MagicalResidue), "Magical Residue", 100, null);
+
+                AddCraft(typeof(LightCannonball), 1079508, "Light Cannonball", 85.0, 110.0, typeof(IronIngot), 1044036, 50, 1044037);
+                
+                index = AddCraft(typeof(IronCannonball), 1079508, "Iron Cannonball", 85.0, 110.0, typeof(IronIngot), 1044036, 50, 1044037);
+                this.AddRes(index, typeof(BolaBall), 1046440, 10, 1042613);
+
+                index = AddCraft(typeof(ExplodingCannonball), 1079508, "Exploding Cannonball", 85.0, 110.0, typeof(IronIngot), 1044036, 50, 1044037);
+                this.AddSkill(index, SkillName.Alchemy, 85.0, 110.0);
+                this.AddRes(index, typeof(BolaBall), 1046440, 10, 1042613);
+                this.AddRes(index, typeof(BaseExplosionPotion), 1116351, 2, 1044253);
+
+
             }
             #endregion
 

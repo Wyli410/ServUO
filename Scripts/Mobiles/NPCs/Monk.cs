@@ -39,6 +39,7 @@ namespace Server.Mobiles
         {
             this.AddItem(new Sandals());
             this.AddItem(new MonkRobe());
+            //this.AddItem(new Monkbelt());
         }
 
         public override void Serialize(GenericWriter writer)

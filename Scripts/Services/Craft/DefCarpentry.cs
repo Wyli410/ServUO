@@ -414,7 +414,6 @@ namespace Server.Engines.Craft
             #endregion
 
             // Staves and Shields
-            this.AddCraft(typeof (BlackStaff), 1044295, 1023568, 81.5, 141.8, typeof (Board), 1044041, 9, 1044351);
             this.AddCraft(typeof(ShepherdsCrook), 1044566, 1023713, 78.9, 103.9, typeof(Board), 1044041, 7, 1044351);
             this.AddCraft(typeof(QuarterStaff), 1044566, 1023721, 73.6, 98.6, typeof(Board), 1044041, 6, 1044351);
             this.AddCraft(typeof(GnarledStaff), 1044566, 1025112, 78.9, 103.9, typeof(Board), 1044041, 7, 1044351);
@@ -692,6 +691,20 @@ namespace Server.Engines.Craft
             {
                 this.AddCraft(typeof(PlayerBBEast), 1044290, 1062420, 85.0, 110.0, typeof(Board), 1044041, 50, 1044351);
                 this.AddCraft(typeof(PlayerBBSouth), 1044290, 1062421, 85.0, 110.0, typeof(Board), 1044041, 50, 1044351);
+                index = this.AddCraft(typeof(SiegeCatapultDeed), 1044290, "Siege Catapult", 100.0, 120.0, typeof(Board), 1044041, 120, 1044351);
+                this.AddSkill(index, SkillName.Tinkering, 100.0, 120.0);
+                this.AddRes(index, typeof(IronIngot), 1044036, 40, 1044037);
+                this.AddRes(index, typeof(BarkFragment), 1032687, 20, 1053098);
+                index = this.AddCraft(typeof(SiegeRamDeed), 1044290, "Siege Ram", 100.0, 120.0, typeof(Board), 1044041, 120, 1044351);
+                this.AddSkill(index, SkillName.Tinkering, 100.0, 120.0);
+                this.AddRes(index, typeof(IronIngot), 1044036, 40, 1044037);
+                this.AddRes(index, typeof(BarkFragment), 1032687, 20, 1053098);
+                this.AddCraft(typeof(LightSiegeLog), 1044290, "Light Siege Log", 85.0, 110.0, typeof(Board), 1044041, 50, 1044351);
+                this.AddCraft(typeof(HeavySiegeLog), 1044290, "Heavy Siege Log", 85.0, 110.0, typeof(Board), 1044041, 100, 1044351);
+                index = this.AddCraft(typeof(IronSiegeLog), 1044290, "Iron Siege Log", 85.0, 110.0, typeof(Board), 1044041, 100, 1044351);
+                this.AddSkill(index, SkillName.Tinkering, 85.0, 110.0);
+                this.AddRes(index, typeof(IronIngot), 1044036, 40, 1044037);
+
             }
 
             // Blacksmithy

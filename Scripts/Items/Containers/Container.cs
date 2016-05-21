@@ -109,9 +109,6 @@ namespace Server.Items
 
             ItemFlags.SetTaken(dropped, true);
 
-            if (HonestyItem)
-                StartHonestyTimer();
-
             return true;
         }
 
@@ -141,11 +138,6 @@ namespace Server.Items
 
             ItemFlags.SetTaken(item, true);
 
-            if (item.HonestyItem)
-            {
-                item.HonestyPickup = DateTime.UtcNow;
-                item.StartHonestyTimer();
-            }
             return true;
         }
 

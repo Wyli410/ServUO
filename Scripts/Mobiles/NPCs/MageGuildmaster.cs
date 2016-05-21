@@ -204,7 +204,7 @@ namespace Server.Mobiles
                     return;
                 }
                    
-                if (From.Account == null || !From.Account.WithdrawGold(250000))
+                if (From.Account == null || !From.Account.WithdrawGold(250))
                 {
                     From.SendLocalizedMessage(1019022); // You do not have enough gold.
                     return;

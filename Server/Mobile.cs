@@ -327,11 +327,6 @@ namespace Server
 			return (DateTime.UtcNow - m_Added) >= m_Duration;
 		}
 
-		public TimeSpan TimeLeft()
-		{
-			return m_Duration - (DateTime.UtcNow - m_Added);
-		}
-
 		public StatMod(StatType type, string name, int offset, TimeSpan duration)
 		{
 			m_Type = type;
@@ -4608,13 +4603,13 @@ namespace Server
 							}
 
 							int oldAmount = item.Amount;
+							//item.Amount = amount; //Set in LiftItemDupe
 
-                            Item oldStack = null;
-
-                            if (amount < oldAmount)
-                            {
-                                oldStack = LiftItemDupe(item, amount);
-                            }
+							if (amount < oldAmount)
+							{
+								LiftItemDupe(item, amount);
+							}
+							//item.Dupe( oldAmount - amount );
 
 							Map map = from.Map;
 
@@ -4656,7 +4651,7 @@ namespace Server
 							Map fixMap = item.Map;
 							bool shouldFix = (item.Parent == null);
 
-							item.RecordBounce(oldStack);
+							item.RecordBounce();
 							item.OnItemLifted(from, item);
 							item.Internalize();
 

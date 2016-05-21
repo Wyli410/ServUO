@@ -27,7 +27,7 @@ namespace Server.Engines.PartySystem
             }
             set
             {
-                this.m_CanLoot = value;
+                this.m_CanLoot = true;
             }
         }
     }

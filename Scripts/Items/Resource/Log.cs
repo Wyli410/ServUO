@@ -36,7 +36,7 @@ namespace Server.Items
 			: base( 0x1BDD )
 		{
 			Stackable = true;
-			Weight = 2.0;
+			Weight = 1.0;
 			Amount = amount;
 
 			m_Resource = resource;

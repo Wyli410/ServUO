@@ -14,7 +14,7 @@ namespace Server.Engines.BulkOrders
         public LargeBOD(int hue, int amountMax, bool requireExeptional, BulkMaterialType material, LargeBulkEntry[] entries)
             : base(Core.AOS ? 0x2258 : 0x14EF)
         {
-            this.Weight = 1.0;
+            this.Weight = 0.05;
             this.Hue = hue; // Blacksmith: 0x44E; Tailoring: 0x483
             this.LootType = LootType.Blessed;
 

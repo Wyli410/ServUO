@@ -9,6 +9,7 @@ namespace Server.Mobiles
         [Constructable]
         public Putrefier()
         {
+
             this.Name = "Putrefier";
             this.Hue = 63;
 
@@ -42,11 +43,6 @@ namespace Server.Mobiles
 
             this.Fame = 24000;
             this.Karma = -24000;
-
-            for (int i = 0; i < Utility.RandomMinMax(0, 2); i++)
-            {
-                this.PackItem(Loot.RandomScroll(0, Loot.ArcanistScrollTypes.Length, SpellbookType.Arcanist));
-            }
         }
 
         public Putrefier(Serial serial)

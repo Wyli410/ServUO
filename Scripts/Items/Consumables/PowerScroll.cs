@@ -28,7 +28,12 @@ namespace Server.Items
             SkillName.Musicianship,
             SkillName.Provocation,
             SkillName.Discordance,
-            SkillName.Peacemaking
+            SkillName.Peacemaking,
+            SkillName.Alchemy,
+            SkillName.Tinkering,
+            SkillName.Carpentry,
+            SkillName.Fletching,
+            SkillName.Lockpicking
         };
         private static readonly SkillName[] m_AOSSkills = new SkillName[]
         {
@@ -63,7 +68,7 @@ namespace Server.Items
         */
         private static readonly List<SkillName> _Skills = new List<SkillName>();
         public PowerScroll()
-            : this(SkillName.Alchemy, 0.0)
+            : this(SkillName.Herding, 0.0)
         {
         }
 
@@ -165,7 +170,7 @@ namespace Server.Items
             {
                 skillName = Skills[Utility.Random(Skills.Count)];
             }
-            while (skillName == SkillName.Blacksmith || skillName == SkillName.Tailoring  || skillName == SkillName.Imbuing);
+            while (skillName == SkillName.Blacksmith || skillName == SkillName.Tailoring  || skillName == SkillName.Imbuing || skillName == SkillName.Alchemy || skillName == SkillName.Carpentry || skillName == SkillName.Tinkering || skillName == SkillName.Fletching);
 
             return new PowerScroll(skillName, 100 + (Utility.RandomMinMax(min, max) * 5));
         }

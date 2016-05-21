@@ -8,7 +8,7 @@ namespace Server.Engines.Quests
         public WondersOfTheNaturalWorldQuest()
             : base()
         { 
-            this.AddObjective(new ObtainObjective(typeof(Gold), "gold coins", 10000, 0xEED));
+            this.AddObjective(new ObtainObjective(typeof(Gold), "gold coins", 100, 0xEED));
 			
             this.AddReward(new BaseReward(typeof(PrismOfLightAdmissionTicket), 1074340)); // Prism of Light Admission Ticket
         }

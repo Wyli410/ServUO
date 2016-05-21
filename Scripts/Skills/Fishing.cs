@@ -46,12 +46,12 @@ namespace Server.Engines.Harvest
             fish.BankHeight = 8;
 
             // Every bank holds from 5 to 15 fish
-            fish.MinTotal = 5;
-            fish.MaxTotal = 15;
+            fish.MinTotal = 200;
+            fish.MaxTotal = 450;
 
             // A resource bank will respawn its content every 10 to 20 minutes
-            fish.MinRespawn = TimeSpan.FromMinutes(10.0);
-            fish.MaxRespawn = TimeSpan.FromMinutes(20.0);
+            fish.MinRespawn = TimeSpan.FromMinutes(0.5);
+            fish.MaxRespawn = TimeSpan.FromMinutes(01.0);
 
             // Skill checking is done on the Fishing skill
             fish.Skill = SkillName.Fishing;
@@ -61,11 +61,11 @@ namespace Server.Engines.Harvest
             fish.RangedTiles = true;
 
             // Players must be within 4 tiles to harvest
-            fish.MaxRange = 4;
+            fish.MaxRange = 8;
 
             // One fish per harvest action
-            fish.ConsumedPerHarvest = 1;
-            fish.ConsumedPerFeluccaHarvest = 1;
+            fish.ConsumedPerHarvest = 10;
+            fish.ConsumedPerFeluccaHarvest = 20;
 
             // The fishing
             fish.EffectActions = new int[] { 12 };
@@ -98,9 +98,10 @@ namespace Server.Engines.Harvest
             {
                 fish.BonusResources = new BonusHarvestResource[]
                 {
-                    	new BonusHarvestResource(0, 99.4, null, null), //set to same chance as mining ml gems
-			new BonusHarvestResource(80.0, .3, 1113764, typeof(DelicateScales)),
-                	new BonusHarvestResource(80.0, .3, 1072597, typeof(WhitePearl))
+                    	new BonusHarvestResource(0, 99.4, null, null), //set to same chance as mining ml gems 
+                        new BonusHarvestResource( 25, 19.4, "You pull out some shellfish", typeof( ShellFish ) ),
+                        new BonusHarvestResource(80.0, .3, 1113764, typeof(DelicateScales)),
+                	    new BonusHarvestResource(80.0, .3, 1072597, typeof(WhitePearl))
                 };
             }
 

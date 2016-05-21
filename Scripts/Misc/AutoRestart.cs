@@ -5,10 +5,10 @@ namespace Server.Misc
 {
     public class AutoRestart : Timer
     {
-        public static bool Enabled = false;// is the script enabled?
+        public static bool Enabled = true;// is the script enabled?
         private static readonly TimeSpan RestartTime = TimeSpan.FromHours(2.0);// time of day at which to restart
         private static readonly TimeSpan RestartDelay = TimeSpan.Zero;// how long the server should remain active before restart (period of 'server wars')
-        private static readonly TimeSpan WarningDelay = TimeSpan.FromMinutes(1.0);// at what interval should the shutdown message be displayed?
+        private static readonly TimeSpan WarningDelay = TimeSpan.FromMinutes(5.0);// at what interval should the shutdown message be displayed?
         private static bool m_Restarting;
         private static DateTime m_RestartTime;
 		private static bool m_Restart = true;
@@ -20,7 +20,7 @@ namespace Server.Misc
             m_RestartTime = DateTime.UtcNow.Date + RestartTime;
 
             if (m_RestartTime < DateTime.UtcNow)
-                m_RestartTime += TimeSpan.FromDays(1.0);
+                m_RestartTime += TimeSpan.FromDays(7.0);
         }
 
         public static bool Restarting

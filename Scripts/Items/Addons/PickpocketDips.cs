@@ -12,7 +12,7 @@ namespace Server.Items
             : base(itemID)
         {
             this.m_MinSkill = -25.0;
-            this.m_MaxSkill = +25.0;
+            this.m_MaxSkill = +125.0;
         }
 
         public PickpocketDip(Serial serial)
@@ -137,10 +137,10 @@ namespace Server.Items
                         this.m_MinSkill = reader.ReadDouble();
                         this.m_MaxSkill = reader.ReadDouble();
 
-                        if (this.m_MinSkill == 0.0 && this.m_MaxSkill == 30.0)
+                        if (this.m_MinSkill == 0.0 && this.m_MaxSkill == 120.0)
                         {
                             this.m_MinSkill = -25.0;
-                            this.m_MaxSkill = +25.0;
+                            this.m_MaxSkill = +125.0;
                         }
 
                         break;

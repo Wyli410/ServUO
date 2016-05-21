@@ -107,7 +107,18 @@ namespace Server.Items
         [Constructable]
         public TailorsCraftsmanSatchel()
             : base()
-        { 
+        {
+            switch (Utility.Random(30))
+            {
+                case 0:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Fletching, 105.0)); break;
+                case 1:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Fletching, 110.0)); break;
+                case 2:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Fletching, 115.0)); break;
+                case 3:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Fletching, 120.0)); break;
+            }
             if (this.Items.Count < 2 && 0.5 > Utility.RandomDouble())
                 this.DropItem(Reward.TailorRecipe());
         }
@@ -135,6 +146,11 @@ namespace Server.Items
 
             int version = reader.ReadInt();
         }
+        private static void PlaceItemIn(Container parent, int x, int y, Item item)
+        {
+            parent.AddItem(item);
+            item.Location = new Point3D(x, y, 0);
+        }
     }
 
     public class SmithsCraftsmanSatchel : BaseCraftsmanSatchel
@@ -142,7 +158,18 @@ namespace Server.Items
         [Constructable]
         public SmithsCraftsmanSatchel()
             : base()
-        { 
+        {
+            switch (Utility.Random(30))
+            {
+                case 0:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Alchemy, 105.0)); break;
+                case 1:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Alchemy, 110.0)); break;
+                case 2:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Alchemy, 115.0)); break;
+                case 3:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Alchemy, 120.0)); break;
+            }
             if (this.Items.Count < 2 && 0.5 > Utility.RandomDouble())
                 this.DropItem(Reward.SmithRecipe());
         }
@@ -170,6 +197,11 @@ namespace Server.Items
 
             int version = reader.ReadInt();
         }
+        private static void PlaceItemIn(Container parent, int x, int y, Item item)
+        {
+            parent.AddItem(item);
+            item.Location = new Point3D(x, y, 0);
+        }
     }
 
     public class TinkersCraftsmanSatchel : BaseCraftsmanSatchel
@@ -177,9 +209,20 @@ namespace Server.Items
         [Constructable]
         public TinkersCraftsmanSatchel()
             : base()
-        { 
-            if (this.Items.Count < 2 && 0.5 > Utility.RandomDouble())
-                this.DropItem(Reward.TinkerRecipe());
+        {
+            switch (Utility.Random(30))
+            {
+                case 0:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Tinkering, 105.0)); break;
+                case 1:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Tinkering, 110.0)); break;
+                case 2:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Tinkering, 115.0)); break;
+                case 3:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Tinkering, 120.0)); break;
+            }
+             if (this.Items.Count < 3 && 0.5 > Utility.RandomDouble())
+               this.DropItem(Reward.TinkerRecipe());
         }
 
         public TinkersCraftsmanSatchel(Serial serial)
@@ -205,6 +248,11 @@ namespace Server.Items
 
             int version = reader.ReadInt();
         }
+        private static void PlaceItemIn(Container parent, int x, int y, Item item)
+        {
+            parent.AddItem(item);
+            item.Location = new Point3D(x, y, 0);
+        }
     }
 
     public class CarpentersCraftsmanSatchel : BaseCraftsmanSatchel
@@ -212,8 +260,19 @@ namespace Server.Items
         [Constructable]
         public CarpentersCraftsmanSatchel()
             : base()
-        { 
-            if (this.Items.Count < 2 && 0.5 > Utility.RandomDouble())
+        {
+            switch (Utility.Random(30))
+            {
+                case 0:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Carpentry, 105.0)); break;
+                case 1:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Carpentry, 110.0)); break;
+                case 2:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Carpentry, 115.0)); break;
+                case 3:
+                    PlaceItemIn(this, 45, 66, new PowerScroll(SkillName.Carpentry, 120.0)); break;
+            }
+            if (this.Items.Count < 3 && 0.5 > Utility.RandomDouble())
                 this.DropItem(Reward.CarpRecipe());				
 			
             if (0.01 > Utility.RandomDouble())
@@ -242,6 +301,11 @@ namespace Server.Items
             base.Deserialize(reader);
 
             int version = reader.ReadInt();
+        }
+        private static void PlaceItemIn(Container parent, int x, int y, Item item)
+        {
+            parent.AddItem(item);
+            item.Location = new Point3D(x, y, 0);
         }
     }
 }

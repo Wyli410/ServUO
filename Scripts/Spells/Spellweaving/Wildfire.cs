@@ -90,8 +90,8 @@ namespace Server.Spells.Spellweaving
             {
                 if (!r.Contains(p))
                     continue;
-                GuardedRegion reg = (GuardedRegion)Region.Find(p, caster.Map).GetRegion(typeof(GuardedRegion));
-                if (reg != null && !reg.Disabled)
+                if (r.Region.GetType().IsAssignableFrom(typeof(GuardedRegion)) &&
+                    !((GuardedRegion)r.Region).Disabled)
                     return false;
             }
             return true;

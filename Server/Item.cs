@@ -560,7 +560,6 @@ namespace Server
 		public Map m_Map;
 		public Point3D m_Location, m_WorldLoc;
 		public object m_Parent;
-		public IEntity m_ParentStack;
 
 		public BounceInfo(Item item)
 		{
@@ -568,7 +567,6 @@ namespace Server
 			m_Location = item.Location;
 			m_WorldLoc = item.GetWorldLocation();
 			m_Parent = item.Parent;
-			m_ParentStack = null;
 		}
 
 		private BounceInfo(Map map, Point3D loc, Point3D worldLoc, object parent)
@@ -577,7 +575,6 @@ namespace Server
 			m_Location = loc;
 			m_WorldLoc = worldLoc;
 			m_Parent = parent;
-			m_ParentStack = null;
 		}
 
 		public static BounceInfo Deserialize(GenericReader reader)
@@ -756,12 +753,6 @@ namespace Server
 		private LootType m_LootType;
 		private DateTime m_LastMovedTime;
 		private Direction m_Direction;
-		private bool m_HonestyItem;
-		private string m_HonestyRegion;
-		private Mobile m_HonestyOwner;
-		private Timer m_HonestyTimer;
-		private DateTime m_HonestyPickup;
-		private Boolean m_HonestyTimerTicking;
 		#endregion
 
 		private ItemDelta m_DeltaFlags;
@@ -1095,12 +1086,11 @@ namespace Server
 			return null;
 		}
 
-		public void RecordBounce(Item parentstack = null)
+		public void RecordBounce()
 		{
 			CompactInfo info = AcquireCompactInfo();
 
 			info.m_Bounce = new BounceInfo(this);
-			info.m_Bounce.m_ParentStack = parentstack;
 		}
 
 		public void ClearBounce()
@@ -1346,11 +1336,6 @@ namespace Server
 				AddLockedDownProperty(list);
 			}
 
-			if (HonestyItem)
-			{
-				AddHonestyProperty(list);
-			}
-
 			Mobile blessedFor = BlessedFor;
 
 			if (blessedFor != null && !blessedFor.Deleted)
@@ -1406,14 +1391,6 @@ namespace Server
 		public virtual void AddBlessedForProperty(ObjectPropertyList list, Mobile m)
 		{
 			list.Add(1062203, "{0}", m.Name); // Blessed for ~1_NAME~
-		}
-
-		public virtual void AddHonestyProperty(ObjectPropertyList list)
-		{
-			if (HonestyItem)
-			{
-				list.Add("Lost Item (Return To Gain Honesty)."); //TODO get cliloc
-			}
 		}
 
 		/// <summary>
@@ -1497,21 +1474,6 @@ namespace Server
 
 			if (bounce != null)
 			{
-				IEntity stack = bounce.m_ParentStack;
-
-				if (stack != null)
-				{
-					var s = (Item)stack;
-
-					if (s != null && !(s).Deleted)
-					{
-						if (s.IsAccessibleTo(from))
-						{
-							s.StackWith(from, this);
-						}
-					}
-				}
-
 				object parent = bounce.m_Parent;
 
 				if (parent is Item && !((Item)parent).Deleted)
@@ -1872,66 +1834,6 @@ namespace Server
 				Map = map;
 				Location = location;
 			}
-		}
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public bool HonestyItem
-		{
-			get
-			{
-				return m_HonestyItem;
-			}
-			set
-			{
-				m_HonestyItem = value;
-				if (m_HonestyItem)
-				{
-
-					string[] regions = { "Britain", "Minoc", "Magincia", "Trinsic", "Jhelom", "Moonglow", "Skara Brae", "Yew" };
-					HonestyRegion = regions[Utility.Random(regions.Length - 1)];
-
-					List<Mobile> mobiles = World.Mobiles.Values.Where(m => m.Region.Name == HonestyRegion && (m.BodyValue == 400 || m.BodyValue == 401) && !m.Player).ToList();
-					if (mobiles.Count > 0)
-					{
-						HonestyOwner = mobiles[Utility.Random(mobiles.Count - 1)];
-					}
-				}
-
-				InvalidateProperties();
-			}
-		}
-
-		public void StartHonestyTimer()
-		{
-			m_HonestyTimerTicking = true;
-			m_HonestyTimer = Timer.DelayCall(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), CheckHonestyExpiry);
-		}
-
-		public void CheckHonestyExpiry()
-		{
-			if ((m_HonestyPickup + TimeSpan.FromHours(15)) < DateTime.UtcNow)
-			{
-				HonestyItem = false;
-				m_HonestyTimer.Stop();
-			}
-		}
-
-		public DateTime HonestyPickup
-		{
-			get { return m_HonestyPickup; }
-			set { m_HonestyPickup = value; }
-		}
-
-		public Mobile HonestyOwner
-		{
-			get { return m_HonestyOwner; }
-			set { m_HonestyOwner = value; }
-		}
-
-		public string HonestyRegion
-		{
-			get { return m_HonestyRegion; }
-			set { m_HonestyRegion = value; }
 		}
 
 		/// <summary>
@@ -2493,16 +2395,8 @@ namespace Server
 
 		public virtual void Serialize(GenericWriter writer)
 		{
-			writer.Write(10); // version
+			writer.Write(9); // version
 
-			//version 10
-			writer.Write(m_HonestyPickup);
-			writer.Write(m_HonestyTimerTicking);
-			writer.Write(m_HonestyOwner);
-			writer.Write(m_HonestyRegion);
-			writer.Write(m_HonestyItem);
-
-			//version 9
 			SaveFlag flags = SaveFlag.None;
 
 			int x = m_Location.m_X, y = m_Location.m_Y, z = m_Location.m_Z;
@@ -2958,19 +2852,6 @@ namespace Server
 
 			switch (version)
 			{
-				case 10:
-					{
-						m_HonestyPickup = reader.ReadDateTime();
-						m_HonestyTimerTicking = reader.ReadBool();
-						m_HonestyOwner = reader.ReadMobile();
-						m_HonestyRegion = reader.ReadString();
-						m_HonestyItem = reader.ReadBool();
-
-						if (m_HonestyTimerTicking)
-							m_HonestyTimer = Timer.DelayCall(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), CheckHonestyExpiry);
-
-						goto case 9;
-					}
 				case 9:
 				case 8:
 				case 7:
@@ -4211,9 +4092,6 @@ namespace Server
 				Spawner.Remove(this);
 				Spawner = null;
 			}
-
-			if (m_HonestyTimer != null)
-				m_HonestyTimer.Stop();
 		}
 
 		public virtual void OnParentDeleted(object parent)
@@ -4937,7 +4815,6 @@ namespace Server
 			if (map == null)
 				return Point3D.Zero;
 
-			int myTop = -255;
 			int x = p.m_X, y = p.m_Y;
 			int z = int.MinValue;
 
@@ -4968,7 +4845,6 @@ namespace Server
 				}
 
 				int top = tile.Z + id.CalcHeight;
-				if (top > p.Z) myTop = top;
 
 				if (top > maxZ || top < z)
 				{
@@ -4999,7 +4875,6 @@ namespace Server
 				}
 
 				int top = item.Z + id.CalcHeight;
-				if (top > p.Z) myTop = top;
 
 				if (top > maxZ || top < z)
 				{
@@ -5109,33 +4984,29 @@ namespace Server
 				height = 30;
 			}
 
-			/*
-            if (myTop != -255)
-            {
-                int match = (1 << height) - 1;
-                bool okay = false;
+			int match = (1 << height) - 1;
+			bool okay = false;
 
-                for (int i = 0; i < 20; ++i)
-                {
-                    if ((i + height) > 20)
-                    {
-                        match >>= 1;
-                    }
+			for (int i = 0; i < 20; ++i)
+			{
+				if ((i + height) > 20)
+				{
+					match >>= 1;
+				}
 
-                    okay = ((m_OpenSlots >> i) & match) == match;
-                  
-                    if (okay)
-                    {
-                        z += i;
-                        break;
-                    }                   
-                }
-			    if (!okay)
-			    {
-				    return Point3D.Zero;
-			    }
-            }
-            */
+				okay = ((m_OpenSlots >> i) & match) == match;
+
+				if (okay)
+				{
+					z += i;
+					break;
+				}
+			}
+
+			if (!okay)
+			{
+				return Point3D.Zero;
+			}
 
 			height = ItemData.Height;
 
@@ -5176,11 +5047,7 @@ namespace Server
 				Item item = items[i];
 				ItemData id = item.ItemData;
 
-                if (item.Z > p.Z + maxZ || item.Z < p.Z) continue;
-
-                z += id.CalcHeight;
-
-				if (((item.Z + id.CalcHeight) >= maxZ) || (myTop != -255 && (item.Z + id.CalcHeight) > myTop)) /*&& (z + height) > item.Z)*/
+				if ((item.Z + id.CalcHeight) > z && (z + height) > item.Z)
 				{
 					return Point3D.Zero;
 				}

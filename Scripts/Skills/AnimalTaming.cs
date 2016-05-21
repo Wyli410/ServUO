@@ -317,14 +317,14 @@ namespace Server.SkillHandlers
 							// You are dead, and cannot continue taming.
 						Stop();
 					}
-					else if (!m_Tamer.CanSee(m_Creature) || !m_Tamer.InLOS(m_Creature) || !CanPath())
-					{
-						m_BeingTamed.Remove(m_Creature);
-						m_Tamer.NextSkillTime = Core.TickCount;
-						m_Tamer.SendLocalizedMessage(1049654);
+					// else if (!m_Tamer.CanSee(m_Creature) || !m_Tamer.InLOS(m_Creature) || !CanPath())
+					// {
+					// 	m_BeingTamed.Remove(m_Creature);
+					// 	m_Tamer.NextSkillTime = Core.TickCount;
+					// 	m_Tamer.SendLocalizedMessage(1049654);
 							// You do not have a clear path to the animal you are taming, and must cease your attempt.
-						Stop();
-					}
+					// 	Stop();
+					// }
 					else if (!m_Creature.Tamable)
 					{
 						m_BeingTamed.Remove(m_Creature);

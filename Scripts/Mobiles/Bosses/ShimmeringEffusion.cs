@@ -45,19 +45,14 @@ namespace Server.Mobiles
 			
             this.PackResources(8);
             this.PackTalismans(5);
-
-            for (int i = 0; i < Utility.RandomMinMax(1, 6); i++)
-            {
-                PackItem(Loot.RandomScroll(0, Loot.ArcanistScrollTypes.Length, SpellbookType.Arcanist));
-            }
         }
 		
         public override void GenerateLoot()
         {
             this.AddLoot(LootPack.SuperBoss, 8);
             this.AddLoot(LootPack.Parrot, 2);
-            this.AddLoot(LootPack.HighScrolls, 3);
-            this.AddLoot(LootPack.MedScrolls, 3);
+            AddLoot(LootPack.HighScrolls, 3);
+            AddLoot(LootPack.MedScrolls, 3);
         }
 		
         public override void OnDeath(Container c)

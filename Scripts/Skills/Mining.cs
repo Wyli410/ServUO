@@ -53,12 +53,12 @@ namespace Server.Engines.Harvest
             oreAndStone.BankHeight = 8;
 
             // Every bank holds from 10 to 34 ore
-            oreAndStone.MinTotal = 10;
-            oreAndStone.MaxTotal = 34;
+            oreAndStone.MinTotal = 200;
+            oreAndStone.MaxTotal = 450;
 
             // A resource bank will respawn its content every 10 to 20 minutes
-            oreAndStone.MinRespawn = TimeSpan.FromMinutes(10.0);
-            oreAndStone.MaxRespawn = TimeSpan.FromMinutes(20.0);
+            oreAndStone.MinRespawn = TimeSpan.FromMinutes(0.5);
+            oreAndStone.MaxRespawn = TimeSpan.FromMinutes(01.0);
 
             // Skill checking is done on the Mining skill
             oreAndStone.Skill = SkillName.Mining;
@@ -70,8 +70,8 @@ namespace Server.Engines.Harvest
             oreAndStone.MaxRange = 2;
 
             // One ore per harvest action
-            oreAndStone.ConsumedPerHarvest = 1;
-            oreAndStone.ConsumedPerFeluccaHarvest = 2;
+            oreAndStone.ConsumedPerHarvest = 10;
+            oreAndStone.ConsumedPerFeluccaHarvest = 20;
 
             // The digging effect
             oreAndStone.EffectActions = new int[] { 11 };
@@ -121,15 +121,14 @@ namespace Server.Engines.Harvest
             {
                 oreAndStone.BonusResources = new BonusHarvestResource[]
                 {
-                    new BonusHarvestResource(0, 99.3, null, null), //Nothing
+                    new BonusHarvestResource(0, 99.4, null, null), //Nothing
                     new BonusHarvestResource(100, .1, 1072562, typeof(BlueDiamond)),
                     new BonusHarvestResource(100, .1, 1072567, typeof(DarkSapphire)),
                     new BonusHarvestResource(100, .1, 1072570, typeof(EcruCitrine)),
                     new BonusHarvestResource(100, .1, 1072564, typeof(FireRuby)),
                     new BonusHarvestResource(100, .1, 1072566, typeof(PerfectEmerald)),
-                    new BonusHarvestResource(100, .1, 1072568, typeof(Turquoise)),
-					new BonusHarvestResource(100, .1, 1113344, typeof(CrystallineBlackrock), Map.TerMur)
-				};
+                    new BonusHarvestResource(100, .1, 1072568, typeof(Turquoise))
+                };
             }
 
             oreAndStone.RaceBonus = Core.ML;

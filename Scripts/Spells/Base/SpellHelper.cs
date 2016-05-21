@@ -621,11 +621,11 @@ namespace Server.Spells
         private static readonly bool[,] m_Rules = new bool[,]
         {
 					/*T2A(Fel),	Khaldun,	Ilshenar,	Wind(Tram),	Wind(Fel),	Dungeons(Fel),	Solen(Tram),	Solen(Fel),	CrystalCave(Malas),	Gauntlet(Malas),	Gauntlet(Ferry),	SafeZone,	Stronghold,	ChampionSpawn,	Dungeons(Tokuno[Malas]),	LampRoom(Doom),	GuardianRoom(Doom),	Heartwood,	MLDungeons */
-/* Recall From */	{ false,	false,		true,		true,		false,		false,			true,			false,		false,				false,				false,				true,		true,		false,			true,						false,			false,				false,		false },
-/* Recall To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false },
-/* Gate From */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false },
-/* Gate To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false },
-/* Mark In */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false },
+/* Recall From */	{ true,	true,		true,		true,		true,		true,			true,			true,		true,				true,				false,				true,		true,		false,			true,						true,			true,				true,		true },
+/* Recall To */		{ true,	false,		true,		true,		true,		true,			true,			true,		false,				false,				false,				false,		false,		false,			true,						false,			false,				false,		true },
+/* Gate From */		{ true,	false,		true,		true,		true,		true,			true,			true,		false,				false,				false,				false,		false,		false,			true,						false,			false,				false,		true },
+/* Gate To */		{ true,	false,		true,		true,		true,		true,			true,			true,		false,				false,				false,				false,		false,		false,			true,						false,			false,				false,		true },
+/* Mark In */		{ true,	false,		true,		true,		true,		true,			true,			true,		false,				false,				false,				false,		false,		false,			true,						false,			false,				false,		true },
 /* Tele From */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				true,				true,		false,		true,			true,						true,			true,				false,		true },
 /* Tele To */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				false,				false,		false, 		true,			true,						true,			true,				false,		false },
         };

@@ -20,11 +20,36 @@ namespace Server.Items
 			SerpentNest nest = (SerpentNest)this;
 			from.Animate( 32, 5, 1, true, false, 0 );
 			if ( Utility.RandomDouble() < 0.20 )  //% may be off, just a rough guess
+			switch (Utility.Random(4))
 			{
-				Item RSE = new RareSerpentEgg();
-				RSE.MoveToWorld(new Point3D(((SerpentNest)this).X, ((SerpentNest)this).Y, ((SerpentNest)this).Z), ((SerpentNest)this).Map);
-				from.SendLocalizedMessage( 1112581 ); // You reach in and find a rare serpent egg!!
-				nest.Delete();
+				case 0: 
+				{
+					RareSerpentEgg4 RSEB = new RareSerpentEgg4();
+					RSEB.MoveToWorld(new Point3D(((SerpentNest)this).X, ((SerpentNest)this).Y, ((SerpentNest)this).Z), ((SerpentNest)this).Map);
+					from.SendLocalizedMessage( 1112581 ); // You reach in and find a rare serpent egg!!
+					nest.Delete();	
+				} break;
+				case 1: 
+				{
+					RareSerpentEgg3 RSEW = new RareSerpentEgg3();
+					RSEW.MoveToWorld(new Point3D(((SerpentNest)this).X, ((SerpentNest)this).Y, ((SerpentNest)this).Z), ((SerpentNest)this).Map);
+					from.SendLocalizedMessage( 1112581 ); // You reach in and find a rare serpent egg!!	
+					nest.Delete();	
+				} break;
+				case 2: 
+				{
+					RareSerpentEgg2 RSER = new RareSerpentEgg2();
+					RSER.MoveToWorld(new Point3D(((SerpentNest)this).X, ((SerpentNest)this).Y, ((SerpentNest)this).Z), ((SerpentNest)this).Map);
+					from.SendLocalizedMessage( 1112581 ); // You reach in and find a rare serpent egg!!	
+					nest.Delete();	
+				} break;
+				case 3: 
+				{
+					RareSerpentEgg1 RSEY = new RareSerpentEgg1();
+					RSEY.MoveToWorld(new Point3D(((SerpentNest)this).X, ((SerpentNest)this).Y, ((SerpentNest)this).Z), ((SerpentNest)this).Map);
+					from.SendLocalizedMessage( 1112581 ); // You reach in and find a rare serpent egg!!		
+					nest.Delete();	
+				} break;
 			}
 			else if ( Utility.RandomDouble() >= 0.20 )
 			switch (Utility.Random(4))

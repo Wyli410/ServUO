@@ -15,7 +15,7 @@ namespace Server.Items
 
             this.Attributes.WeaponDamage = 60;
             this.Attributes.DefendChance = 15;
-            this.BlockRepair = true;
+            BlockRepair = true;
         }
 
         public KatrinasCrook(Serial serial)
@@ -55,14 +55,14 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.WriteEncodedInt(0); // version
+            writer.Write((int)2);
         }
 
         public override void Deserialize(GenericReader reader)
         {
             base.Deserialize(reader);
 
-            int version = reader.ReadEncodedInt();
+            int version = reader.ReadInt();
         }
     }
 }

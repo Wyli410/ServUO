@@ -33,9 +33,9 @@ namespace Server.Misc
                 m_PetStatGainDelay = TimeSpan.FromSeconds(0.5);
         }
 
-    public static TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(5.0); //How long do we remember targets/locations?
-        public const int Allowance = 3;	//How many times may we use the same location/target for gain
-        private const int LocationSize = 5; //The size of eeach location, make this smaller so players dont have to move as far
+    public static TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(0.1); //How long do we remember targets/locations?
+        public const int Allowance = 99;	//How many times may we use the same location/target for gain
+        private const int LocationSize = 1; //The size of eeach location, make this smaller so players dont have to move as far
         private static readonly bool[] UseAntiMacro = new bool[]
         {
             // true if this skill uses the anti-macro code, false if it does not
@@ -154,10 +154,10 @@ namespace Server.Misc
             bool success = (chance >= Utility.RandomDouble());
             double gc = (double)(from.Skills.Cap - from.Skills.Total) / from.Skills.Cap;
             gc += (skill.Cap - skill.Base) / skill.Cap;
-            gc /= 2;
+            gc /= 0.8;
 
             gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
-            gc /= 2;
+            gc /= 0.8;
 
             gc *= skill.Info.GainFactor;
 

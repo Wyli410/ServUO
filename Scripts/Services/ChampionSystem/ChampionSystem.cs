@@ -94,10 +94,10 @@ namespace Server.Engines.CannedEvil
 				else
 					m_Rank[i] = 3;
 			}
-			m_MaxKill[0] = Config.Get("Champions.Rank1MaxKills", 256);
-			m_MaxKill[1] = Config.Get("Champions.Rank2MaxKills", 128);
-			m_MaxKill[2] = Config.Get("Champions.Rank3MaxKills", 64);
-			m_MaxKill[3] = Config.Get("Champions.Rank4MaxKills", 32);
+			m_MaxKill[0] = Config.Get("Champions.Rank1MaxKills", 64);
+			m_MaxKill[1] = Config.Get("Champions.Rank2MaxKills", 32);
+			m_MaxKill[2] = Config.Get("Champions.Rank3MaxKills", 16);
+			m_MaxKill[3] = Config.Get("Champions.Rank4MaxKills", 8);
 			EventSink.WorldLoad += EventSink_WorldLoad;
 			EventSink.WorldSave += EventSink_WorldSave;
 		}

@@ -247,7 +247,7 @@ namespace Server.Engines.PartySystem
 
             this.m_Candidates.Remove(from);
             this.Add(from);
-        }
+      }
 
         public void OnDecline(Mobile from, Mobile leader)
         {

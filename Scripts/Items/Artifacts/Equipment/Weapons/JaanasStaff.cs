@@ -11,12 +11,12 @@ namespace Server.Items
         {
             this.Hue = 0x58C;
 
-            this.WeaponAttributes.MageWeapon = 10;
+            this.WeaponAttributes.MageWeapon = 20;
 
             this.Attributes.SpellChanneling = 1;
             this.Attributes.Luck = 220;
             this.Attributes.DefendChance = 15;
-            this.BlockRepair = true;
+            BlockRepair = true;
         }
 
         public JaanasStaff(Serial serial)

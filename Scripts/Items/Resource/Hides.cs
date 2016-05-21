@@ -16,7 +16,7 @@ namespace Server.Items
             : base(0x1079)
         {
             this.Stackable = true;
-            this.Weight = 5.0;
+            this.Weight = 1.0;
             this.Amount = amount;
             this.Hue = CraftResources.GetHue(resource);
 

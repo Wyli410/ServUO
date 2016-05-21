@@ -91,11 +91,6 @@ namespace Server.Items
         #endregion
 
         #region Spawn Locations
-        private static Rectangle2D[] m_FelTramWrap = new Rectangle2D[]
-        {
-            new Rectangle2D(0, 0, 5119, 4095)
-        };
-
         private static Rectangle2D[] m_TokunoWrap = new Rectangle2D[]
         {
             new Rectangle2D(155, 207, 30, 40),
@@ -351,9 +346,7 @@ namespace Server.Items
             int x = 0;
             int y = 0;
 
-            if (map == Map.Trammel || map == Map.Felucca)
-                recs = m_FelTramWrap;
-            else if (map == Map.Tokuno)
+            if (map == Map.Tokuno)
                 recs = m_TokunoWrap;
             else if (map == Map.Malas)
                 recs = m_MalasWrap;
@@ -378,14 +371,6 @@ namespace Server.Items
         {
             int z = map.GetAverageZ(x, y);
 
-            LandTile lt = map.Tiles.GetLandTile(x, y);
-            LandData landID = TileData.LandTable[lt.ID];
-            TileFlag landFlags = landID.Flags;
-
-            //Checks for impassable flag..cant walk, cant have a chest
-            if ((landFlags & TileFlag.Impassable) > 0)
-                return false;
-
             Region reg = Region.Find(new Point3D(x, y, z), map);
 
             //no-go in towns, houses, dungeons and champspawns
@@ -402,7 +387,9 @@ namespace Server.Items
                 }
             }
 
-
+            LandTile lt = map.Tiles.GetLandTile(x, y);
+            LandData landID = TileData.LandTable[lt.ID];
+            TileFlag landFlags = landID.Flags;
 
             //Checks for roads
             for (int i = 0; i < Server.Multis.HousePlacement.RoadIDs.Length; i += 2)
@@ -410,6 +397,10 @@ namespace Server.Items
                 if (lt.ID >= Server.Multis.HousePlacement.RoadIDs[i] && lt.ID <= Server.Multis.HousePlacement.RoadIDs[i + 1])
                     return false;
             }
+
+            //Checks for impassable flag..cant walk, cant have a chest
+            if ((landFlags & TileFlag.Impassable) > 0)
+                return false;
 
             string n = landID.Name == null ? "" : landID.Name.ToLower();
             if (n != "dirt" && n != "grass" && n != "jungle" && n != "forest" && n != "snow")

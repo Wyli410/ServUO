@@ -78,9 +78,8 @@ namespace Server.Mobiles
 		ToggleClippings = 0x00800000,
 		ToggleCutClippings = 0x01000000,
 		ToggleCutReeds = 0x02000000,
-		MechanicalLife = 0x04000000,
-        HumilityHunt = 0x08000000
-    }
+		MechanicalLife = 0x04000000
+	}
 
 	public enum NpcGuild
 	{
@@ -435,53 +434,12 @@ namespace Server.Mobiles
 		private Map m_SSSeedMap;
 
 		public Map SSSeedMap { get { return m_SSSeedMap; } set { m_SSSeedMap = value; } }
-        #endregion
+		#endregion
 
-        #endregion
+		#endregion
 
-        #region Humility
-        public bool HumilityHunt
-        {
-            get { return GetFlag(PlayerFlag.HumilityHunt); }
-            set
-            {
-                SetFlag(PlayerFlag.HumilityHunt, value);
-                if (value)
-                {
-                    foreach (ResistanceMod rm in _HumilityMods)
-                    {
-                        AddResistanceMod(rm);
-                    }
-                    BuffInfo info = new BuffInfo(BuffIcon.Humility, 1155807, 1155806, "-70");
-                    BuffInfo.AddBuff(this, info);
-
-                }
-                else
-                {
-                    foreach (ResistanceMod rm in _HumilityMods)
-                    {
-                        RemoveResistanceMod(rm);
-                    }
-                    BuffInfo.RemoveBuff(this, BuffIcon.Humility);
-                }
-            }
-        }
-
-        public DateTime HumilityHuntLastEnded;
-
-	    private readonly List<ResistanceMod> _HumilityMods = new List<ResistanceMod>()
-        {
-            new ResistanceMod(ResistanceType.Physical, -70),
-            new ResistanceMod(ResistanceType.Fire, -70),
-            new ResistanceMod(ResistanceType.Energy, -70),
-            new ResistanceMod(ResistanceType.Cold, -70),
-            new ResistanceMod(ResistanceType.Poison, -70)
-        };
-
-        #endregion
-
-        #region Auto Arrow Recovery
-        private readonly Dictionary<Type, int> m_RecoverableAmmo = new Dictionary<Type, int>();
+		#region Auto Arrow Recovery
+		private readonly Dictionary<Type, int> m_RecoverableAmmo = new Dictionary<Type, int>();
 
 		public Dictionary<Type, int> RecoverableAmmo { get { return m_RecoverableAmmo; } }
 
@@ -777,32 +735,33 @@ namespace Server.Mobiles
 				UpdateResistances();
 			}
 		}
-        public override int GetMaxResistance(ResistanceType type)
-        {
-            if (IsStaff())
-            {
-                return 100;
-            }
- 
-            int max = base.GetMaxResistance(type);
- 
+
+		public override int GetMaxResistance(ResistanceType type)
+		{
+			if (IsStaff())
+			{
+				return 100;
+			}
+
+			int max = base.GetMaxResistance(type);
+
             #region Stygian Abyss
             int stoneformOffset = Spells.Mystic.StoneFormSpell.GetMaxResistMod(this);
             #endregion
- 
-            if (type != ResistanceType.Physical && 60 < max && CurseSpell.UnderEffect(this))
-            {
-                max = 60;
+
+			if (type != ResistanceType.Physical && 60 < max && CurseSpell.UnderEffect(this))
+			{
+				max = 60;
                 stoneformOffset = 0;
-            }
- 
-            if (Core.ML && Race == Race.Elf && type == ResistanceType.Energy)
-            {
-                max += 5; //Intended to go after the 60 max from curse
-            }
- 
-            return Math.Max(MinPlayerResistance + stoneformOffset, Math.Max(MaxPlayerResistance + stoneformOffset, max + stoneformOffset));
-        }
+			}
+
+			if (Core.ML && Race == Race.Elf && type == ResistanceType.Energy)
+			{
+				max += 5; //Intended to go after the 60 max from curse
+			}
+
+            return Math.Max(MinPlayerResistance + stoneformOffset, Math.Min(MaxPlayerResistance + stoneformOffset, max + stoneformOffset));
+		}
 
 		protected override void OnRaceChange(Race oldRace)
 		{
@@ -4061,8 +4020,8 @@ namespace Server.Mobiles
 			}
 
 			CheckKillDecay();
-            HumilityHunt = false;
-            CheckAtrophies(this);
+
+			CheckAtrophies(this);
 
 			base.Serialize(writer);
 
